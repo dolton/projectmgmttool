@@ -1,4 +1,4 @@
-package com.dolton.study.ppmtool;
+package com.dolton.study.ppm.ppmtool;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
