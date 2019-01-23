@@ -1,12 +1,16 @@
 package com.dolton.study.ppm.ppmtool.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import com.dolton.study.ppm.ppmtool.entity.Project;
 
-@Repository
-public interface ProjectDAO extends JpaRepository<Project, Long>
+public interface ProjectDAO
 {
+	public Project saveProject(Project p);
 	
+	public Project findProjectByIdentifier(String identifier);
+	
+	public void deleteByIdentifier(String projectIdentifier);
+
+	public List<Project> findAllProjects();
 }

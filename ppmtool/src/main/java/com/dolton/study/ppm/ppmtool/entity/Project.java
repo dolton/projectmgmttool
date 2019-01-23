@@ -7,12 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="project")
+@NamedQueries({
+		@NamedQuery(name="Project.findByIdentifier", query="select p from Project p where p.projectIdentifier = :identifier"),
+		@NamedQuery(name="Project.findAllProjects", query="select p from Project p")
+})
 public class Project
 {
 	@Id
@@ -20,12 +28,16 @@ public class Project
 	@Column(name="id")
 	public Long id;
 
+	@NotBlank(message = "Project name is mandatory")
 	@Column(name="project_name")
 	private String projectName;
 
-	@Column(name="project_identifier")
+	@NotBlank(message = "Project identifier is mandatory")
+	@Size(min=4, max=5, message="Please use 4 to 5 characters")
+	@Column(name="project_identifier", updatable=false, unique=true)
 	private String projectIdentifier;
 
+	@NotBlank(message = "Project description is mandatory")
 	@Column(name="project_desc")
 	private String description;
 
@@ -115,5 +127,25 @@ public class Project
 	public void setEndDate(Date endDate)
 	{
 		this.endDate = endDate;
+	}
+
+	public Date getCreatedDate()
+	{
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate)
+	{
+		this.createdDate = createdDate;
+	}
+
+	public Date getModifiedDate()
+	{
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate)
+	{
+		this.modifiedDate = modifiedDate;
 	}
 }
